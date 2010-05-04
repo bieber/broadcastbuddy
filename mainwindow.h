@@ -24,8 +24,12 @@ public slots:
     void slideSelected(QModelIndex index);
     void deleteCurrent();
     void newSlide();
-    void saveCurrent();
-    void clearCurrent();
+    void saveCurrent(); //Saves current slide to list, not file
+    void clearCurrent(); //Replaces edited data with data in list
+    void clearAll(); //Empties the current script
+    void saveFile(); //Saves the current file
+    void saveAs(); //Saves with prompt for filename
+    void loadFile(); //Loads a script from file
 
 
 private:

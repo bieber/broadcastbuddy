@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QStringListModel>
+
+#include <QFileDialog>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), connectionLabel()
@@ -16,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
                      this, SLOT(slideSelected(QModelIndex)));
     ui->slideList->setModel(&slides);
 
-    //Connecting buttons to main window signals
+    //Connecting buttons to main window slots
     QObject::connect(ui->deleteSlideButton, SIGNAL(clicked()),
                      this, SLOT(deleteCurrent()));
     QObject::connect(ui->newSlideButton, SIGNAL(clicked()),
@@ -26,6 +28,11 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->confirmEdit, SIGNAL(rejected()),
                      this, SLOT(clearCurrent()));
 
+    //Connecting menu items
+    QObject::connect(ui->actionNew_Script, SIGNAL(triggered()),
+                     this, SLOT(clearAll()));
+    QObject::connect(ui->actionLoad_Script, SIGNAL(triggered()),
+                     this, SLOT(loadFile()));
 }
 
 MainWindow::~MainWindow()
@@ -61,6 +68,28 @@ void MainWindow::saveCurrent(){
 void MainWindow::clearCurrent(){
     loadSlide(currentSlide);
 }
+
+void MainWindow::clearAll(){
+    fileName = "";
+    loadSlide(-1);
+}
+
+void MainWindow::saveFile(){
+
+}
+
+void MainWindow::saveAs(){
+
+}
+
+void MainWindow::loadFile(){
+    fileName = QFileDialog::getOpenFileName(this, "Open Script", "",
+                                            "Broadcast Buddy Script Files "
+                                            "(*.bbs);;All Files (*.*)");
+    if(!QFile::exists(fileName))
+        return;
+}
+
 
 void MainWindow::loadSlide(int index){
 
