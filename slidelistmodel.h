@@ -30,6 +30,9 @@ public:
     int rowCount(const QModelIndex& parent = QModelIndex()) const;
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     slide* getSlide(int index){ return slides[index]; }
+    void clearSlides();
+    void saveToFile(QString path);
+    void loadFromFile(QString path);
 
 private:
     std::vector<slide*> slides;

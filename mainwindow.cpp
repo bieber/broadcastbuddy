@@ -33,6 +33,10 @@ MainWindow::MainWindow(QWidget *parent)
                      this, SLOT(clearAll()));
     QObject::connect(ui->actionLoad_Script, SIGNAL(triggered()),
                      this, SLOT(loadFile()));
+    QObject::connect(ui->actionSave_Script, SIGNAL(triggered()),
+                     this, SLOT(saveFile()));
+    QObject::connect(ui->actionSave_Script_As, SIGNAL(triggered()),
+                     this, SLOT(saveAs()));
 }
 
 MainWindow::~MainWindow()
@@ -49,7 +53,7 @@ void MainWindow::deleteCurrent(){
     slides.removeSlide(currentSlide);
     while(currentSlide >= slides.rowCount())
         currentSlide--;
-    loadSlide(currentSlide); //Clears out the interface
+    loadSlide(currentSlide);
 }
 
 void MainWindow::newSlide(){
@@ -71,15 +75,34 @@ void MainWindow::clearCurrent(){
 
 void MainWindow::clearAll(){
     fileName = "";
+    while(slides.rowCount() > 0)
+        slides.removeSlide(0);
     loadSlide(-1);
 }
 
 void MainWindow::saveFile(){
+    if(fileName == "")
+        fileName = QFileDialog::getSaveFileName(this, "Save Script As", "",
+                                                "Broadcast Buddy Script Files "
+                                                "(*.bbs);;All Files (*.*)");
+    if(fileName == "")
+        return;
 
+    slides.saveToFile(fileName);
+    ui->statusBar->showMessage("Script Saved", 3000);
 }
 
 void MainWindow::saveAs(){
 
+    fileName = QFileDialog::getSaveFileName(this, "Save Script As", "",
+                                            "Broadcast Buddy Script Files "
+                                            "(*.bbs);;All Files (*.*)");
+
+    if(fileName == "")
+        return;
+
+    slides.saveToFile(fileName);
+    ui->statusBar->showMessage("Script Saved", 3000);
 }
 
 void MainWindow::loadFile(){
@@ -88,6 +111,9 @@ void MainWindow::loadFile(){
                                             "(*.bbs);;All Files (*.*)");
     if(!QFile::exists(fileName))
         return;
+
+    slides.loadFromFile(fileName);
+    ui->statusBar->showMessage("Script Loaded", 3000);
 }
 
 

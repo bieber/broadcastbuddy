@@ -1,6 +1,10 @@
 #include "slidelistmodel.h"
 
-#include <iostream>
+#include <string>
+
+#include <QFile>
+#include <QTextStream>
+
 SlideListModel::SlideListModel()
 {
 }
@@ -45,6 +49,80 @@ QVariant SlideListModel::data(const QModelIndex& index, int role) const{
 
     return (slides[index.row()])->title;
 }
+
+void SlideListModel::saveToFile(QString path){
+    QFile file(path);
+
+    //Opening the file
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+    QTextStream fout(&file);
+
+    //Writing the file contents
+    std::vector<slide*>::iterator i;
+    for(i = slides.begin(); i != slides.end(); i++){
+        QString buffer;
+
+        fout << "[{";
+
+        //Buffering and escaping the title
+        buffer = "";
+        for(int j = 0; j < (*i)->title.length(); j++){
+            if((*i)->title[j] == '}'){
+                buffer.push_back('~');
+                buffer.push_back('}');
+            }else if((*i)->content[j] == '~'){
+                buffer.push_back('~');
+                buffer.push_back('~');
+            }else{
+                buffer.push_back((*i)->title[j]);
+            }
+        }
+
+        fout << buffer;
+        fout << "\n {" << (*i)->fgColor << "}\n {" << (*i)->bgColor << "}\n {";
+
+        //Buffering and escaping the text
+        buffer = "";
+        for(int j = 0; j < (*i)->content.length(); j++){
+            if((*i)->content[j] == '}'){
+                buffer.push_back('~');
+                buffer.push_back('}');
+            }else if((*i)->content[j] == '~'){
+                buffer.push_back('~');
+                buffer.push_back('~');
+            }else{
+                buffer.push_back((*i)->content[j]);
+            }
+        }
+
+        fout << buffer << "}]\n\n";
+    }
+
+    file.close();
+}
+
+void SlideListModel::loadFromFile(QString path){
+    QString title;
+    QString fgColor;
+    QString bgColor;
+    QString content;
+    QChar in;
+
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    while(!file.atEnd()){
+        title = ""; fgColor = ""; bgColor = ""; content = "";
+        //Looking for the opening square bracket
+        in = file.getChar();
+
+    }
+
+    file.close();
+}
+
 
 SlideListModel::~SlideListModel(){
     std::vector<slide*>::iterator i;
