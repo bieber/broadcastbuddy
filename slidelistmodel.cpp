@@ -80,7 +80,7 @@ void SlideListModel::saveToFile(QString path){
         }
 
         fout << buffer;
-        fout << "\n {" << (*i)->fgColor << "}\n {" << (*i)->bgColor << "}\n {";
+        fout << "}\n {" << (*i)->fgColor << "}\n {" << (*i)->bgColor << "}\n {";
 
         //Buffering and escaping the text
         buffer = "";
@@ -107,20 +107,83 @@ void SlideListModel::loadFromFile(QString path){
     QString fgColor;
     QString bgColor;
     QString content;
-    QChar in;
+    char in;
 
     QFile file(path);
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
 
+    //Clearing the list
+    emit beginRemoveRows(QModelIndex(), 0, (int)(slides.size()) - 1);
+    while(slides.size() > 0)
+        removeSlide(0);
+    emit endRemoveRows();
+
+    //Parsing the individual slides
     while(!file.atEnd()){
         title = ""; fgColor = ""; bgColor = ""; content = "";
-        //Looking for the opening square bracket
-        in = file.getChar();
 
+        /* It's vitally important that any functional code in this function
+         * gets nested within a while(file.getChar(&in)) block, so that if we
+         * hit file end prematurely nothing else gets executed
+         */
+
+        while(file.getChar(&in) && in != '[');
+
+        while(file.getChar(&in) && in != '{');
+
+        while(file.getChar(&in)){
+            if(in == '~'){
+                file.getChar(&in);
+                title.push_back(in);
+            }else if(in == '}'){
+                break;
+            }else{
+                title.push_back(in);
+            }
+        }
+
+        while(file.getChar(&in) && in != '{');
+
+        while(file.getChar(&in)){
+            if(in == '}')
+                break;
+            else
+                fgColor.push_back(in);
+        }
+
+        while(file.getChar(&in) && in != '{');
+
+        while(file.getChar(&in)){
+            if(in == '}')
+                break;
+            else
+                bgColor.push_back(in);
+        }
+
+        while(file.getChar(&in) && in != '{');
+
+        while(file.getChar(&in)){
+            if(in == '}'){
+                break;
+            }else if(in == '~'){
+                file.getChar(&in);
+                content.push_back(in);
+            }else{
+                content.push_back(in);
+            }
+        }
+
+        while(file.getChar(&in) && in != ']');
+
+        slides.push_back(new slide(title, fgColor, bgColor, content));
     }
 
     file.close();
+
+    //Notifying viewers that data has been added
+    emit beginInsertRows(QModelIndex(), 0, (int)(slides.size()) - 1);
+    emit endInsertRows();
 }
 
 

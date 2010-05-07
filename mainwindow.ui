@@ -14,7 +14,7 @@
    <string>Broadcast Buddy</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_9">
+   <layout class="QHBoxLayout" name="horizontalLayout_8">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -22,7 +22,7 @@
         <item>
          <widget class="QListView" name="slideList">
           <property name="tabKeyNavigation">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -156,16 +156,6 @@
           </property>
           <property name="acceptRichText">
            <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QDialogButtonBox" name="confirmEdit">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="standardButtons">
-           <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
           </property>
          </widget>
         </item>

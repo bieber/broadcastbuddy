@@ -19,14 +19,20 @@ MainWindow::MainWindow(QWidget *parent)
     ui->slideList->setModel(&slides);
 
     //Connecting buttons to main window slots
-    QObject::connect(ui->deleteSlideButton, SIGNAL(clicked()),
+    QObject::connect(ui->deleteSlideButton, SIGNAL(pressed()),
                      this, SLOT(deleteCurrent()));
-    QObject::connect(ui->newSlideButton, SIGNAL(clicked()),
+    QObject::connect(ui->newSlideButton, SIGNAL(pressed()),
                      this, SLOT(newSlide()));
-    QObject::connect(ui->confirmEdit, SIGNAL(accepted()),
+
+    //Connecting edit fields to the saveCurrent signal
+    QObject::connect(ui->titleInput, SIGNAL(textEdited(QString)),
                      this, SLOT(saveCurrent()));
-    QObject::connect(ui->confirmEdit, SIGNAL(rejected()),
-                     this, SLOT(clearCurrent()));
+    QObject::connect(ui->fgInput, SIGNAL(textEdited(QString)),
+                     this, SLOT(saveCurrent()));
+    QObject::connect(ui->bgInput, SIGNAL(textEdited(QString)),
+                     this, SLOT(saveCurrent()));
+    QObject::connect(ui->textInput, SIGNAL(textChanged()),
+                     this, SLOT(saveCurrent()));
 
     //Connecting menu items
     QObject::connect(ui->actionNew_Script, SIGNAL(triggered()),
@@ -126,7 +132,6 @@ void MainWindow::loadSlide(int index){
         ui->bgInput->setEnabled(false);
         ui->textInput->setEnabled(false);
         ui->deleteSlideButton->setEnabled(false);
-        ui->confirmEdit->setEnabled(false);
     }else{
         //Loading the selected slide
         SlideListModel::slide* slide = slides.getSlide(index);
@@ -140,7 +145,6 @@ void MainWindow::loadSlide(int index){
         ui->bgInput->setEnabled(true);
         ui->textInput->setEnabled(true);
         ui->deleteSlideButton->setEnabled(true);
-        ui->confirmEdit->setEnabled(true);
 
     }
 }
