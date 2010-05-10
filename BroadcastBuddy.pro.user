@@ -61,7 +61,7 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-8k8c5bV9m0,guid=8700d911d1828d52082f172e4be08544</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-XKNzVbDO8B,guid=6eb8e523fde0d968f94208f74be74bbb</value>
     <value type="QString" >DESKTOP_SESSION=gnome</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
@@ -69,8 +69,8 @@
     <value type="QString" >GDM_KEYBOARD_LAYOUT=us	dvorak</value>
     <value type="QString" >GDM_LANG=en_US.UTF-8</value>
     <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString" >GNOME_KEYRING_PID=1911</value>
-    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-csc4De/socket</value>
+    <value type="QString" >GNOME_KEYRING_PID=1912</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-GIUvQ6/socket</value>
     <value type="QString" >GTK_MODULES=canberra-gtk-module:gail:atk-bridge</value>
     <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/bieber/.gtkrc-1.2-gnome2</value>
     <value type="QString" >HOME=/home/bieber</value>
@@ -82,16 +82,16 @@
     <value type="QString" >PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
     <value type="QString" >PWD=/home/bieber</value>
     <value type="QString" >QTDIR=/usr</value>
-    <value type="QString" >SESSION_MANAGER=local/bieber-desktop:@/tmp/.ICE-unix/1926,unix/bieber-desktop:/tmp/.ICE-unix/1926</value>
+    <value type="QString" >SESSION_MANAGER=local/bieber-desktop:@/tmp/.ICE-unix/1927,unix/bieber-desktop:/tmp/.ICE-unix/1927</value>
     <value type="QString" >SHELL=/bin/bash</value>
     <value type="QString" >SPEECHD_PORT=7560</value>
-    <value type="QString" >SSH_AGENT_PID=1971</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-csc4De/socket.ssh</value>
+    <value type="QString" >SSH_AGENT_PID=1972</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-GIUvQ6/socket.ssh</value>
     <value type="QString" >USER=bieber</value>
     <value type="QString" >USERNAME=bieber</value>
-    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-bieber-VQksbP/database</value>
+    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-bieber-nlWcJK/database</value>
     <value type="QString" >XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
-    <value type="QString" >XDG_SESSION_COOKIE=c0a1f4ee0b0e245a94b1c78f4b0c9902-1273005379.946681-1341441709</value>
+    <value type="QString" >XDG_SESSION_COOKIE=c0a1f4ee0b0e245a94b1c78f4b0c9902-1273449402.843787-1958230792</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
     <value type="QString" >/home/bieber/projects/broadcastbuddy/BroadcastBuddy.pro</value>
@@ -111,7 +111,7 @@
   <valuemap type="QVariantMap" >
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString" >Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList" >
-    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-8k8c5bV9m0,guid=8700d911d1828d52082f172e4be08544</value>
+    <value type="QString" >DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-XKNzVbDO8B,guid=6eb8e523fde0d968f94208f74be74bbb</value>
     <value type="QString" >DESKTOP_SESSION=gnome</value>
     <value type="QString" >DESKTOP_STARTUP_ID=</value>
     <value type="QString" >DISPLAY=:0.0</value>
@@ -119,8 +119,8 @@
     <value type="QString" >GDM_KEYBOARD_LAYOUT=us	dvorak</value>
     <value type="QString" >GDM_LANG=en_US.UTF-8</value>
     <value type="QString" >GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString" >GNOME_KEYRING_PID=1911</value>
-    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-csc4De/socket</value>
+    <value type="QString" >GNOME_KEYRING_PID=1912</value>
+    <value type="QString" >GNOME_KEYRING_SOCKET=/tmp/keyring-GIUvQ6/socket</value>
     <value type="QString" >GTK_MODULES=canberra-gtk-module:gail:atk-bridge</value>
     <value type="QString" >GTK_RC_FILES=/etc/gtk/gtkrc:/home/bieber/.gtkrc-1.2-gnome2</value>
     <value type="QString" >HOME=/home/bieber</value>
@@ -132,16 +132,16 @@
     <value type="QString" >PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
     <value type="QString" >PWD=/home/bieber</value>
     <value type="QString" >QTDIR=/usr</value>
-    <value type="QString" >SESSION_MANAGER=local/bieber-desktop:@/tmp/.ICE-unix/1926,unix/bieber-desktop:/tmp/.ICE-unix/1926</value>
+    <value type="QString" >SESSION_MANAGER=local/bieber-desktop:@/tmp/.ICE-unix/1927,unix/bieber-desktop:/tmp/.ICE-unix/1927</value>
     <value type="QString" >SHELL=/bin/bash</value>
     <value type="QString" >SPEECHD_PORT=7560</value>
-    <value type="QString" >SSH_AGENT_PID=1971</value>
-    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-csc4De/socket.ssh</value>
+    <value type="QString" >SSH_AGENT_PID=1972</value>
+    <value type="QString" >SSH_AUTH_SOCK=/tmp/keyring-GIUvQ6/socket.ssh</value>
     <value type="QString" >USER=bieber</value>
     <value type="QString" >USERNAME=bieber</value>
-    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-bieber-VQksbP/database</value>
+    <value type="QString" >XAUTHORITY=/var/run/gdm/auth-for-bieber-nlWcJK/database</value>
     <value type="QString" >XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
-    <value type="QString" >XDG_SESSION_COOKIE=c0a1f4ee0b0e245a94b1c78f4b0c9902-1273005379.946681-1341441709</value>
+    <value type="QString" >XDG_SESSION_COOKIE=c0a1f4ee0b0e245a94b1c78f4b0c9902-1273449402.843787-1958230792</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList" >
     <value type="QString" >-w</value>

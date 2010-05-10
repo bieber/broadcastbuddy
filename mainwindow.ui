@@ -194,6 +194,7 @@
      <string>Connection</string>
     </property>
     <addaction name="actionConnect_to_Server"/>
+    <addaction name="actionDisconnect"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuConnection"/>
@@ -241,6 +242,9 @@
    <property name="text">
     <string>Connect to Server</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
   </action>
   <action name="actionSave_Script_As">
    <property name="text">
@@ -248,6 +252,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionDisconnect">
+   <property name="text">
+    <string>Disconnect</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

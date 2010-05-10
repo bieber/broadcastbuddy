@@ -3,7 +3,9 @@
 
 #include <QtGui/QMainWindow>
 #include <QLabel>
-#include <QStringListModel>
+#include <QTcpSocket>
+#include <QTcpServer>
+#include <QList>
 
 #include "slidelistmodel.h"
 
@@ -20,7 +22,9 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-public slots:
+    static const quint16 port = 2682;
+
+private slots:
     void slideSelected(QModelIndex index);
     void deleteCurrent();
     void newSlide();
@@ -30,7 +34,13 @@ public slots:
     void saveFile(); //Saves the current file
     void saveAs(); //Saves with prompt for filename
     void loadFile(); //Loads a script from file
-
+    void disconnect(); //Closes all connections
+    void connect(); //Attempts to connect to a server
+    void newConnection();
+    void lostConnection();
+    void receiveData();
+    void networkError();
+    void broadcast();
 
 private:
     Ui::MainWindow *ui;
@@ -38,8 +48,14 @@ private:
     SlideListModel slides;
     int currentSlide;
     QString fileName;
+    QTcpServer server;
+    QList<QTcpSocket*> connections;
+    QTcpSocket clientConnection;
+    quint16 blockSize;
 
     void loadSlide(int index);
+    void writeStatus();
+    void writeToAll(QByteArray& data);
 };
 
 #endif // MAINWINDOW_H
