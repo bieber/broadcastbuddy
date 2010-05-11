@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(&clientConnection,
                      SIGNAL(error(QAbstractSocket::SocketError)),
                      this,
-                     SLOT(networkError()));
+                     SLOT(networkError(QAbstractSocket::SocketError)));
     QObject::connect(&clientConnection, SIGNAL(readyRead()),
                      this, SLOT(receiveData()));
 
@@ -71,12 +71,16 @@ MainWindow::MainWindow(QWidget *parent)
                      this, SLOT(newConnection()));
 
 
+    //Setting up the viewer
+    view = new SlideDisplay();
+
     writeStatus();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete view;
     disconnect();
 }
 
@@ -252,13 +256,24 @@ void MainWindow::receiveData(){
         return;
 
     //We'll only get this far if we've got a complete block ready
-    QString data;
-    nin >> data;
-    std::cout << data.toStdString() << std::endl;
+    QString fgColor;
+    QString bgColor;
+    QString content;
+    nin >> fgColor;
+    nin >> bgColor;
+    nin >> content;
+
+    view->setColors(fgColor, bgColor);
+    view->setText(content);
+    view->showFullScreen();
+
     blockSize = 0;
 }
 
-void MainWindow::networkError(){
+void MainWindow::networkError(QAbstractSocket::SocketError error){
+    if(error == QAbstractSocket::RemoteHostClosedError)
+        return;
+
     QMessageBox::information(this, "Network Error",
                              "Couldn't connect to server");
     clientConnection.close();
@@ -314,6 +329,9 @@ void MainWindow::writeToAll(QByteArray& data){
 
 void MainWindow::broadcast(){
 
+    if(currentSlide < 0 || currentSlide >= slides.rowCount())
+        return;
+
     //Starting an empty array of bytes
     QByteArray data;
     QDataStream nout(&data, QIODevice::WriteOnly);
@@ -321,7 +339,25 @@ void MainWindow::broadcast(){
     nout << (quint16)0;
 
     //Adding some data
-    nout << QString("This here is some data");
+    SlideListModel::slide* ref = slides.getSlide(currentSlide);
+
+    //Making sure the colors are valid hex strings, or else everything will go
+    //wrong on the other end
+    if(ref->fgColor.length() != 6){
+        QMessageBox::information(this, "Format Error", "Foreground color must "
+                                 "be a six digit hexadecimal color");
+        return;
+    }
+
+    if(ref->bgColor.length() != 6){
+        QMessageBox::information(this, "Format Error", "Background color must "
+                                 "be a six digit hexadecimal color");
+        return;
+    }
+
+    nout << ref->fgColor;
+    nout << ref->bgColor;
+    nout << ref->content;
 
     //And then going back and adding the size
     nout.device()->seek(0);

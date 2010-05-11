@@ -6,7 +6,10 @@ TARGET = BroadcastBuddy
 TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
-    slidelistmodel.cpp
+    slidelistmodel.cpp \
+    SlideDisplay.cpp
 HEADERS += mainwindow.h \
-    slidelistmodel.h
-FORMS += mainwindow.ui
+    slidelistmodel.h \
+    SlideDisplay.h
+FORMS += mainwindow.ui \
+    SlideDisplay.ui

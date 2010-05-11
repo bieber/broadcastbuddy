@@ -7,6 +7,7 @@
 #include <QTcpServer>
 #include <QList>
 
+#include "SlideDisplay.h"
 #include "slidelistmodel.h"
 
 namespace Ui
@@ -39,7 +40,7 @@ private slots:
     void newConnection();
     void lostConnection();
     void receiveData();
-    void networkError();
+    void networkError(QAbstractSocket::SocketError error);
     void broadcast();
 
 private:
@@ -52,6 +53,7 @@ private:
     QList<QTcpSocket*> connections;
     QTcpSocket clientConnection;
     quint16 blockSize;
+    SlideDisplay* view;
 
     void loadSlide(int index);
     void writeStatus();
