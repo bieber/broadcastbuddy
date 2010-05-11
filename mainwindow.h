@@ -42,6 +42,8 @@ private slots:
     void receiveData();
     void networkError(QAbstractSocket::SocketError error);
     void broadcast();
+    void next();
+    void previous();
 
 private:
     Ui::MainWindow *ui;

@@ -205,8 +205,17 @@
     <addaction name="actionConnect_to_Server"/>
     <addaction name="actionDisconnect"/>
    </widget>
+   <widget class="QMenu" name="menuBroadcast">
+    <property name="title">
+     <string>Broadcast</string>
+    </property>
+    <addaction name="actionBroadcast_Current"/>
+    <addaction name="actionNext"/>
+    <addaction name="actionPrevious"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuConnection"/>
+   <addaction name="menuBroadcast"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionLoad_Script">
@@ -271,6 +280,30 @@
     <string>Ctrl+D</string>
    </property>
   </action>
+  <action name="actionBroadcast_Current">
+   <property name="text">
+    <string>Broadcast Current</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionNext">
+   <property name="text">
+    <string>Next</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Right</string>
+   </property>
+  </action>
+  <action name="actionPrevious">
+   <property name="text">
+    <string>Previous</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Left</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
@@ -287,7 +320,7 @@
  <connections>
   <connection>
    <sender>actionQuit</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>

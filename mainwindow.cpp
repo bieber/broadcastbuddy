@@ -55,6 +55,12 @@ MainWindow::MainWindow(QWidget *parent)
                      this, SLOT(disconnect()));
     QObject::connect(ui->actionConnect_to_Server, SIGNAL(triggered()),
                      this, SLOT(connect()));
+    QObject::connect(ui->actionBroadcast_Current, SIGNAL(triggered()),
+                     this, SLOT(broadcast()));
+    QObject::connect(ui->actionNext, SIGNAL(triggered()),
+                     this, SLOT(next()));
+    QObject::connect(ui->actionPrevious, SIGNAL(triggered()),
+                     this, SLOT(previous()));
 
     //Setting up the client
     QObject::connect(&clientConnection,
@@ -73,6 +79,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Setting up the viewer
     view = new SlideDisplay();
+    QObject::connect(this, SIGNAL(destroyed()),
+                     view, SLOT(close()));
 
     writeStatus();
 }
@@ -271,8 +279,11 @@ void MainWindow::receiveData(){
 }
 
 void MainWindow::networkError(QAbstractSocket::SocketError error){
-    if(error == QAbstractSocket::RemoteHostClosedError)
+    if(error == QAbstractSocket::RemoteHostClosedError){
+        writeStatus();
+        QTimer::singleShot(0, view, SLOT(close()));
         return;
+    }
 
     QMessageBox::information(this, "Network Error",
                              "Couldn't connect to server");
@@ -363,4 +374,16 @@ void MainWindow::broadcast(){
     nout.device()->seek(0);
     nout << (quint16)(data.size() - (int)sizeof(quint16));
     writeToAll(data);
+}
+
+void MainWindow::next(){
+    if(currentSlide < slides.rowCount() - 1)
+        currentSlide++;
+    QTimer::singleShot(0, this, SLOT(broadcast()));
+}
+
+void MainWindow::previous(){
+    if(currentSlide > 0)
+        currentSlide--;
+    QTimer::singleShot(0, this, SLOT(broadcast()));
 }

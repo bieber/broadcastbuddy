@@ -176,7 +176,8 @@ void SlideListModel::loadFromFile(QString path){
 
         while(file.getChar(&in) && in != ']');
 
-        slides.push_back(new slide(title, fgColor, bgColor, content));
+        if(title != "" && content != "")
+            slides.push_back(new slide(title, fgColor, bgColor, content));
     }
 
     file.close();
