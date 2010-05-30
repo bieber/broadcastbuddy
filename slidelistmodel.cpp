@@ -1,3 +1,22 @@
+ /*
+  * Copyright 2010, Robert Bieber
+  *
+  * This file is part of Broadcast Buddy.
+  * Broadcast Buddy is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
+  *
+  * Broadcast Buddy is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with Broadcast Buddy.  If not, see <http://www.gnu.org/licenses/>.
+  *
+  */
+
 #include "slidelistmodel.h"
 
 #include <string>
@@ -40,11 +59,12 @@ void SlideListModel::modSlide(int index, QString title, QString fgColor,
 }
 
 int SlideListModel::rowCount(const QModelIndex& parent) const{
+    QModelIndex x = parent; // A hack to shut g++ up
     return slides.size();
 }
 
 QVariant SlideListModel::data(const QModelIndex& index, int role) const{
-    if(role != Qt::DisplayRole || index.row() >= slides.size())
+    if(role != Qt::DisplayRole || index.row() >= (int)slides.size())
         return QVariant();
 
     return (slides[index.row()])->title;

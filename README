@@ -1,0 +1,34 @@
+This is Broadcast Buddy, version 1.1.  Broadcast Buddy is free software,
+released under the GNU General Public License, version 3 or later.
+
+Broadcast Buddy is a small Qt application that allows you to display full-screen
+slides on multiple computers from a single controlling computer.
+
+To compile Broadcast Buddy:
+- Extract the source files into a directory, and cd to it
+- Run qmake
+- Run make (or the make program your compiler uses)
+- If running make causes an error, run "make distclean", "qmake", and "make" 
+
+Broadcast Buddy uses a single executable (BroadcastBuddy) for all functionality.
+When you start the program, you're presented with an editor for slides.  You can
+add and remove slides to the list using the + and - buttons and edit them using
+the text boxes on the right side of the window.
+
+Initially, the program will act as a server, listening for incoming connections
+from clients running the same program.  If others connect to your server, you
+can then broadcast slides to them using the "Broadcast" button, or the options
+in the Broadcast menu.  You can disconnect all clients at any time by selecting
+the "Disconnect" option in the "Connections" menu.
+
+To connect to another computer as a client, select "Connect to Server" from the
+"Connection" menu and enter the server's address.  If a connection is
+successfully established, you will see "Connected to Master" in the status bar.
+Once connected, any messages broadcast from the master will appear full-screen.
+To exit the full-screen view, press the escape key.  To disconnect from the
+server, select "Disconnect" from the "Connection" menu.
+
+As of version 1.1, you may broadcast an emergency message at any time without 
+entering it in the script editor.  Simply press Ctrl-E or select "Emergency 
+Broadcast" from the "Broadcast" menu, and enter your desired text in the dialog 
+box.  The text you enter will flash on the screens of every connected client.

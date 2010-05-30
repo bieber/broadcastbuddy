@@ -1,3 +1,22 @@
+ /*
+  * Copyright 2010, Robert Bieber
+  *
+  * This file is part of Broadcast Buddy.
+  * Broadcast Buddy is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
+  *
+  * Broadcast Buddy is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+  *
+  * You should have received a copy of the GNU General Public License
+  * along with Broadcast Buddy.  If not, see <http://www.gnu.org/licenses/>.
+  *
+  */
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -61,6 +80,8 @@ MainWindow::MainWindow(QWidget *parent)
                      this, SLOT(next()));
     QObject::connect(ui->actionPrevious, SIGNAL(triggered()),
                      this, SLOT(previous()));
+    QObject::connect(ui->actionEmergency, SIGNAL(triggered()),
+                     this, SLOT(emergencyBroadcast()));
 
     //Setting up the client
     QObject::connect(&clientConnection,
@@ -268,6 +289,20 @@ void MainWindow::receiveData(){
     QString bgColor;
     QString content;
     nin >> fgColor;
+
+    //Checking for the emergency signal
+    if(fgColor == "~E"){
+
+        nin >> content;
+        view->setColors("#000000", "#ff0000");
+        view->setText(content);
+        view->emergency(content);
+        view->showFullScreen();
+        blockSize = 0;
+        return;
+
+    }
+
     nin >> bgColor;
     nin >> content;
 
@@ -280,6 +315,7 @@ void MainWindow::receiveData(){
 
 void MainWindow::networkError(QAbstractSocket::SocketError error){
     if(error == QAbstractSocket::RemoteHostClosedError){
+        QTimer::singleShot(0, this, SLOT(disconnect()));
         writeStatus();
         QTimer::singleShot(0, view, SLOT(close()));
         return;
@@ -386,4 +422,27 @@ void MainWindow::previous(){
     if(currentSlide > 0)
         currentSlide--;
     QTimer::singleShot(0, this, SLOT(broadcast()));
+}
+
+void MainWindow::emergencyBroadcast(){
+
+    bool ok;
+    QString text = QInputDialog::getText(this, "Emergency Broadcast",
+                                         "Emergency broadcast text: ",
+                                         QLineEdit::Normal, "", &ok);
+    if(!ok)
+        return;
+
+    // Assembling the emergency message
+    QByteArray data;
+    QDataStream nout(&data, QIODevice::WriteOnly);
+    nout.setVersion(QDataStream::Qt_4_0);
+    nout << (quint16)0; //Place holder for the block size
+
+    nout << QString("~E");
+    nout << text;
+    nout.device()->seek(0);
+    nout << (quint16)(data.size() - sizeof(quint16));
+
+    writeToAll(data);
 }

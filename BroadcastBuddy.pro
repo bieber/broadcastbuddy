@@ -13,3 +13,5 @@ HEADERS += mainwindow.h \
     SlideDisplay.h
 FORMS += mainwindow.ui \
     SlideDisplay.ui
+OTHER_FILES += README \
+    COPYING
