@@ -41,15 +41,13 @@ MainWindow::MainWindow(QWidget *parent)
 
   settings.beginGroup("BroadcastBuddy");
 
-  QPoint pos = settings.value("position").toPoint();
-  QSize size = settings.value("size").toSize();
+  QByteArray geometry = settings.value("geometry").toByteArray();
 
   settings.endGroup();
 
-  if(!(pos.isNull() || size.isNull()))
+  if(!geometry.isNull())
   {
-    resize(size);
-    move(pos);
+    restoreGeometry(geometry);
   }
 
   //Setting the connection status
@@ -145,8 +143,7 @@ MainWindow::~MainWindow()
 
   settings.beginGroup("BroadcastBuddy");
 
-  settings.setValue("size", size());
-  settings.setValue("position", geometry().topLeft());
+  settings.setValue("geometry", saveGeometry());
 
   settings.endGroup();
 
@@ -258,6 +255,9 @@ void MainWindow::loadFile(){
 
 void MainWindow::loadSlide(int index){
 
+  ui->downArrow->setEnabled(index < slides.rowCount() - 1);
+  ui->upArrow->setEnabled(index > 0);
+
   if(index < 0){
     //Clear out everything
     ui->titleInput->setEnabled(false);
@@ -267,6 +267,8 @@ void MainWindow::loadSlide(int index){
     ui->bgPick->setEnabled(false);
     ui->textInput->setEnabled(false);
     ui->deleteSlideButton->setEnabled(false);
+    ui->upArrow->setEnabled(false);
+    ui->downArrow->setEnabled(false);
   }else{
     //Loading the selected slide
     SlideListModel::slide* slide = slides.getSlide(index);
