@@ -1,4 +1,8 @@
 *.o
+*.pro.user
+Makefile
+moc_*
+ui_*
 *~
 BroadcastBuddy
 
