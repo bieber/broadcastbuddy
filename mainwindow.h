@@ -1,4 +1,4 @@
- /*
+/*
   * Copyright 2010, Robert Bieber
   *
   * This file is part of Broadcast Buddy.
@@ -25,61 +25,68 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 #include <QList>
+#include <QColorDialog>
 
 #include "SlideDisplay.h"
 #include "slidelistmodel.h"
 
 namespace Ui
 {
-    class MainWindow;
+  class MainWindow;
 }
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+  MainWindow(QWidget *parent = 0);
+  ~MainWindow();
 
-    static const quint16 port = 2682;
+  static const quint16 port = 2682;
 
 private slots:
-    void slideSelected(QModelIndex index);
-    void deleteCurrent();
-    void newSlide();
-    void saveCurrent(); //Saves current slide to list, not file
-    void clearCurrent(); //Replaces edited data with data in list
-    void clearAll(); //Empties the current script
-    void saveFile(); //Saves the current file
-    void saveAs(); //Saves with prompt for filename
-    void loadFile(); //Loads a script from file
-    void disconnect(); //Closes all connections
-    void connect(); //Attempts to connect to a server
-    void newConnection();
-    void lostConnection();
-    void receiveData();
-    void networkError(QAbstractSocket::SocketError error);
-    void broadcast();
-    void next();
-    void previous();
-    void emergencyBroadcast();
+  void slideSelected(QModelIndex index);
+  void deleteCurrent();
+  void newSlide();
+  void saveCurrent(); //Saves current slide to list, not file
+  void clearCurrent(); //Replaces edited data with data in list
+  void clearAll(); //Empties the current script
+  void saveFile(); //Saves the current file
+  void saveAs(); //Saves with prompt for filename
+  void loadFile(); //Loads a script from file
+  void disconnect(); //Closes all connections
+  void connect(); //Attempts to connect to a server
+  void newConnection();
+  void lostConnection();
+  void receiveData();
+  void networkError(QAbstractSocket::SocketError error);
+  void broadcast();
+  void next();
+  void previous();
+  void emergencyBroadcast();
+  void fgPick();
+  void bgPick();
+  void fgChange(QColor color);
+  void bgChange(QColor color);
 
 private:
-    Ui::MainWindow *ui;
-    QLabel connectionLabel;
-    SlideListModel slides;
-    int currentSlide;
-    QString fileName;
-    QTcpServer server;
-    QList<QTcpSocket*> connections;
-    QTcpSocket clientConnection;
-    quint16 blockSize;
-    SlideDisplay* view;
+  Ui::MainWindow *ui;
+  QLabel connectionLabel;
+  SlideListModel slides;
+  int currentSlide;
+  QString fileName;
+  QTcpServer server;
+  QList<QTcpSocket*> connections;
+  QTcpSocket clientConnection;
+  quint16 blockSize;
+  SlideDisplay* view;
+  QColorDialog fgDialog;
+  QColorDialog bgDialog;
 
-    void loadSlide(int index);
-    void writeStatus();
-    void writeToAll(QByteArray& data);
+  void loadSlide(int index);
+  void writeStatus();
+  void writeToAll(QByteArray& data);
 };
 
 #endif // MAINWINDOW_H

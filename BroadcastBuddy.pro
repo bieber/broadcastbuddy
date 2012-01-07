@@ -15,3 +15,6 @@ FORMS += mainwindow.ui \
     SlideDisplay.ui
 OTHER_FILES += README \
     COPYING
+
+RESOURCES += \
+    resources.qrc

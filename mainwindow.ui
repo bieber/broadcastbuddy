@@ -112,7 +112,7 @@
             <item>
              <widget class="QLabel" name="fgLabel">
               <property name="text">
-               <string>Foreground</string>
+               <string>FG Color</string>
               </property>
               <property name="buddy">
                <cstring>fgInput</cstring>
@@ -122,7 +122,7 @@
             <item>
              <widget class="QLabel" name="bgLabel">
               <property name="text">
-               <string>Background</string>
+               <string>BG Color</string>
               </property>
               <property name="buddy">
                <cstring>bgInput</cstring>
@@ -141,18 +141,54 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="fgInput">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QLineEdit" name="fgInput">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="fgPick">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/icons/res/gnome-color-chooser.png</normaloff>:/icons/res/gnome-color-chooser.png</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
-             <widget class="QLineEdit" name="bgInput">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QLineEdit" name="bgInput">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="bgPick">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/icons/res/gnome-color-chooser.png</normaloff>:/icons/res/gnome-color-chooser.png</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>
@@ -318,15 +354,15 @@
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>titleInput</tabstop>
-  <tabstop>fgInput</tabstop>
-  <tabstop>bgInput</tabstop>
   <tabstop>textInput</tabstop>
   <tabstop>slideList</tabstop>
   <tabstop>broadcastButton</tabstop>
   <tabstop>newSlideButton</tabstop>
   <tabstop>deleteSlideButton</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>actionQuit</sender>

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>res/gnome-color-chooser.png</file>
+    </qresource>
+</RCC>

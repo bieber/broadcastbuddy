@@ -1,8 +1,9 @@
 *.o
-*.pro.user
+*.pro.user*
 Makefile
 moc_*
 ui_*
+qrc_*
 *~
 BroadcastBuddy
 

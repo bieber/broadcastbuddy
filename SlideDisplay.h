@@ -1,4 +1,4 @@
- /*
+/*
   * Copyright 2010, Robert Bieber
   *
   * This file is part of Broadcast Buddy.
@@ -25,27 +25,27 @@
 #include <QTimer>
 
 namespace Ui {
-    class SlideDisplay;
+  class SlideDisplay;
 }
 
 class SlideDisplay : public QWidget {
-    Q_OBJECT
+  Q_OBJECT
 public:
-    SlideDisplay(QWidget *parent = 0);
-    ~SlideDisplay();
+  SlideDisplay(QWidget *parent = 0);
+  ~SlideDisplay();
 
-    void setColors(QString fg, QString bg);
-    void setText(QString content);
-    void emergency(QString text);
+  void setColors(QString fg, QString bg);
+  void setText(QString content);
+  void emergency(QString text);
 
 private slots:
-    void blink();
+  void blink();
 
 private:
-    Ui::SlideDisplay *ui;
-    QShortcut escape;
-    QTimer blinker;
-    bool red;
+  Ui::SlideDisplay *ui;
+  QShortcut escape;
+  QTimer blinker;
+  bool red;
 
 };
 

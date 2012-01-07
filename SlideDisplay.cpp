@@ -1,4 +1,4 @@
- /*
+/*
   * Copyright 2010, Robert Bieber
   *
   * This file is part of Broadcast Buddy.
@@ -24,51 +24,51 @@ SlideDisplay::SlideDisplay(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SlideDisplay), escape(this), blinker(this)
 {
-    ui->setupUi(this);
-    escape.setKey(Qt::Key_Escape);
-    QObject::connect(&escape, SIGNAL(activated()),
-                     this, SLOT(close()));
-    QObject::connect(&blinker, SIGNAL(timeout()),
-                     this, SLOT(blink()));
+  ui->setupUi(this);
+  escape.setKey(Qt::Key_Escape);
+  QObject::connect(&escape, SIGNAL(activated()),
+                   this, SLOT(close()));
+  QObject::connect(&blinker, SIGNAL(timeout()),
+                   this, SLOT(blink()));
 
-    blinker.setInterval(500);
+  blinker.setInterval(500);
 }
 
 SlideDisplay::~SlideDisplay()
 {
-    delete ui;
+  delete ui;
 }
 
 void SlideDisplay::setColors(QString fg, QString bg){
 
-    blinker.stop();
+  blinker.stop();
 
-    QPalette newPal;
-    newPal.setColor(QPalette::Background, QString("#") + fg);
-    newPal.setColor(QPalette::Foreground, QString("#") + bg);
-    setPalette(newPal);
+  QPalette newPal;
+  newPal.setColor(QPalette::Background, QString("#") + fg);
+  newPal.setColor(QPalette::Foreground, QString("#") + bg);
+  setPalette(newPal);
 }
 
 
 void SlideDisplay::setText(QString content){
-    ui->output->setText(content);
+  ui->output->setText(content);
 }
 
 void SlideDisplay::emergency(QString text){
-    ui->output->setText(text);
-    blinker.start();
+  ui->output->setText(text);
+  blinker.start();
 }
 
 void SlideDisplay::blink(){
-    QPalette newPal;
-    if(red){
-        newPal.setColor(QPalette::Background, QColor(255, 0, 0));
-        newPal.setColor(QPalette::Foreground, QColor(0, 0, 0));
-        red = false;
-    }else{
-        newPal.setColor(QPalette::Background, QColor(0, 0, 0));
-        newPal.setColor(QPalette::Foreground, QColor(255, 255, 255));
-        red = true;
-    }
-    setPalette(newPal);
+  QPalette newPal;
+  if(red){
+    newPal.setColor(QPalette::Background, QColor(255, 0, 0));
+    newPal.setColor(QPalette::Foreground, QColor(0, 0, 0));
+    red = false;
+  }else{
+    newPal.setColor(QPalette::Background, QColor(0, 0, 0));
+    newPal.setColor(QPalette::Foreground, QColor(255, 255, 255));
+    red = true;
+  }
+  setPalette(newPal);
 }
