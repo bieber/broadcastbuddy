@@ -196,12 +196,20 @@ void MainWindow::clearAll(){
 }
 
 void MainWindow::saveFile(){
+  QSettings settings;
+  settings.beginGroup("BroadcastBuddy");
+
+  QString lastDir = settings.value("lastdir", "").toString();
+
   if(fileName == "")
-    fileName = QFileDialog::getSaveFileName(this, "Save Script As", "",
+    fileName = QFileDialog::getSaveFileName(this, "Save Script As", lastDir,
                                             "Broadcast Buddy Script Files "
                                             "(*.bbs);;All Files (*.*)");
   if(fileName == "")
     return;
+
+  settings.setValue("lastdir", QFileInfo(fileName).dir().path());
+  settings.endGroup();
 
   slides.saveToFile(fileName);
   ui->statusBar->showMessage("Script Saved", 3000);
@@ -209,23 +217,39 @@ void MainWindow::saveFile(){
 
 void MainWindow::saveAs(){
 
-  fileName = QFileDialog::getSaveFileName(this, "Save Script As", "",
+  QSettings settings;
+  settings.beginGroup("BroadcastBuddy");
+
+  QString lastDir = settings.value("lastdir", "").toString();
+
+  fileName = QFileDialog::getSaveFileName(this, "Save Script As", lastDir,
                                           "Broadcast Buddy Script Files "
                                           "(*.bbs);;All Files (*.*)");
 
   if(fileName == "")
     return;
 
+  settings.setValue("lastdir", QFileInfo(fileName).dir().path());
+  settings.endGroup();
+
   slides.saveToFile(fileName);
   ui->statusBar->showMessage("Script Saved", 3000);
 }
 
 void MainWindow::loadFile(){
-  fileName = QFileDialog::getOpenFileName(this, "Open Script", "",
+  QSettings settings;
+  settings.beginGroup("BroadcastBuddy");
+
+  QString lastDir = settings.value("lastdir", "").toString();
+
+  fileName = QFileDialog::getOpenFileName(this, "Open Script", lastDir,
                                           "Broadcast Buddy Script Files "
                                           "(*.bbs);;All Files (*.*)");
   if(!QFile::exists(fileName))
     return;
+
+  settings.setValue("lastdir", QFileInfo(fileName).dir().path());
+  settings.endGroup();
 
   slides.loadFromFile(fileName);
   ui->statusBar->showMessage("Script Loaded", 3000);
