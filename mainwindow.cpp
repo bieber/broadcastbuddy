@@ -24,6 +24,7 @@
 #include <QFileDialog>
 #include <QtNetwork>
 #include <QInputDialog>
+#include <QItemSelectionModel>
 
 #include <iostream>
 #include <cstdio>
@@ -142,6 +143,11 @@ void MainWindow::deleteCurrent(){
 void MainWindow::newSlide(){
 
   slides.addSlide("New Slide", "000000", "ffffff", "Slide text here");
+  currentSlide = slides.rowCount() - 1;
+  QItemSelectionModel *m = ui->slideList->selectionModel();
+  m->select(slides.index(slides.rowCount() - 1),
+            QItemSelectionModel::ClearAndSelect);
+  loadSlide(currentSlide);
 }
 
 void MainWindow::saveCurrent(){
