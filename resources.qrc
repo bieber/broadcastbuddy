@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/icons">
         <file>res/gnome-color-chooser.png</file>
+        <file>res/go-down.png</file>
+        <file>res/go-up.png</file>
     </qresource>
 </RCC>

@@ -23,6 +23,11 @@
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
+
+  QCoreApplication::setApplicationName("Broadcast Buddy");
+  QCoreApplication::setApplicationVersion("1.3");
+  QCoreApplication::setOrganizationName("bieber");
+
   MainWindow w;
   w.show();
   return a.exec();

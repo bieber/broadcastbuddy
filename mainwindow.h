@@ -1,5 +1,5 @@
 /*
-  * Copyright 2010, Robert Bieber
+  * Copyright 2010-2012, Robert Bieber
   *
   * This file is part of Broadcast Buddy.
   * Broadcast Buddy is free software: you can redistribute it and/or modify

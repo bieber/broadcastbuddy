@@ -1,5 +1,5 @@
 /*
-  * Copyright 2010, Robert Bieber
+  * Copyright 2010-2012, Robert Bieber
   *
   * This file is part of Broadcast Buddy.
   * Broadcast Buddy is free software: you can redistribute it and/or modify
@@ -25,6 +25,7 @@
 #include <QtNetwork>
 #include <QInputDialog>
 #include <QItemSelectionModel>
+#include <QSettings>
 
 #include <iostream>
 #include <cstdio>
@@ -34,6 +35,22 @@ MainWindow::MainWindow(QWidget *parent)
   server(this), clientConnection(this), blockSize(0)
 {
   ui->setupUi(this);
+
+  // Loading window position and size
+  QSettings settings;
+
+  settings.beginGroup("BroadcastBuddy");
+
+  QPoint pos = settings.value("position").toPoint();
+  QSize size = settings.value("size").toSize();
+
+  settings.endGroup();
+
+  if(!(pos.isNull() || size.isNull()))
+  {
+    resize(size);
+    move(pos);
+  }
 
   //Setting the connection status
   connectionLabel.setText("Disconnected");
@@ -123,6 +140,16 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+  // Storing window position and size
+  QSettings settings;
+
+  settings.beginGroup("BroadcastBuddy");
+
+  settings.setValue("size", size());
+  settings.setValue("position", geometry().topLeft());
+
+  settings.endGroup();
+
   delete ui;
   delete view;
   disconnect();
